@@ -1,55 +1,69 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="h4">Docentes</h2>
-    <a href="{{ route('docentes.create') }}" class="btn btn-primary">+ Nuevo docente</a>
-</div>
+    <div class="w-10/12">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-semibold text-white">Docentes</h2>
+            <a href="{{ route('docentes.create') }}" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700">
+                + Nuevo docente
+            </a>
+        </div>
 
-<form method="GET" class="row g-2 mb-3">
-    <div class="col-md-4">
-        <input type="text" name="apellido" value="{{ request('apellido') }}" class="form-control" placeholder="Buscar por apellido...">
-    </div>
-    <div class="col-md-4">
-        <input type="text" name="dni" value="{{ request('dni') }}" class="form-control" placeholder="Buscar por DNI...">
-    </div>
-    <div class="col-md-4">
-        <button class="btn btn-outline-secondary">Buscar</button>
-    </div>
-</form>
+        <form method="GET" class="flex flex-col gap-2 mb-6 md:flex-row">
+        <input
+            type="text"
+            name="last_name"
+            value="{{ request('apellido') }}"
+            placeholder="Buscar por apellido..."
+            class="px-3 py-2 bg-white rounded md:w-1/3"
+        >
+        <input
+            type="text"
+            name="dni"
+            value="{{ request('dni') }}"
+            placeholder="Buscar por DNI..."
+            class="px-3 py-2 bg-white rounded md:w-1/3"
+        >
+        <button class="px-4 py-2 text-sm font-semibold text-white rounded bg-slate-600 hover:bg-slate-700">
+            Buscar
+        </button>
+    </form>
 
-<table class="table table-striped table-hover bg-white">
-    <thead>
-    <tr>
-        <th>Apellido</th>
-        <th>Nombre</th>
-        <th>DNI</th>
-        <th>Teléfono</th>
-        <th>Mail ABC</th>
-        <th class="text-end">Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    @forelse($docentes as $docente)
-        <tr>
-            <td>{{ $docente->apellido }}</td>
-            <td>{{ $docente->nombre }}</td>
-            <td>{{ $docente->dni }}</td>
-            <td>{{ $docente->telefono }}</td>
-            <td>{{ $docente->mail_abc }}</td>
-            <td class="text-end">
-                <a href="{{ route('docentes.show', $docente) }}" class="btn btn-sm btn-info">Ver</a>
-                <a href="{{ route('docentes.edit', $docente) }}" class="btn btn-sm btn-warning">Editar</a>
-                <a href="{{ route('docentes.materias', $docente) }}" class="btn btn-sm btn-secondary">Materias</a>
-                <form action="{{ route('docentes.destroy', $docente) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro que querés eliminar?');">
-                    @csrf @method('DELETE')
-                    <button class="btn btn-sm btn-danger">Eliminar</button>
-                </form>
-            </td>
-        </tr>
-    @empty
-        <tr><td colspan="6" class="text-center">No hay docentes cargados.</td></tr>
-    @endforelse
-    </tbody>
-</table>
+        <div class="overflow-x-auto bg-white rounded shadow">
+            <table class="min-w-full text-sm text-left">
+                <thead class="bg-slate-100">
+                    <tr>
+                        <th class="px-4 py-2">Apellido</th>
+                        <th class="px-4 py-2">Nombre</th>
+                        <th class="px-4 py-2">DNI</th>
+                        <th class="px-4 py-2">Teléfono</th>
+                        <th class="px-4 py-2">Mail ABC</th>
+                        <th class="px-4 py-2">Creado (A-M-D)</th>
+                        <th class="px-4 py-2 text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @forelse($teachers as $teacher)
+                    <tr class="border-b">
+                        <td class="px-4 py-2">{{ $teacher->last_name }}</td>
+                        <td class="px-4 py-2">{{ $teacher->name }}</td>
+                        <td class="px-4 py-2">{{ $teacher->dni }}</td>
+                        <td class="px-4 py-2">{{ $teacher->phone }}</td>
+                        <td class="px-4 py-2">{{ $teacher->email_abc }}</td>
+                        <td class="px-4 py-2">{{ $teacher->created_at->format('Y-m-d') }}</td>
+                        <td class="px-4 py-2 space-x-2 text-right">
+                            <a href="{{ route('docentes.show', $teacher) }}" class="text-blue-600 hover:underline">Ver</a>
+                            <a href="{{ route('docentes.edit', $teacher) }}" class="text-amber-600 hover:underline">Editar</a>
+                            <a href="{{ route('docentes.delete', $teacher) }}" class="text-amber-800 hover:underline">Eliminar</a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="px-4 py-6 text-center text-slate-500">No hay docentes cargados.</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection

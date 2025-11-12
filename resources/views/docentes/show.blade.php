@@ -1,32 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="h4 mb-3">Detalle docente</h2>
-
-<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title">{{ $docente->apellido }}, {{ $docente->nombre }}</h5>
-        <p class="mb-1"><strong>DNI:</strong> {{ $docente->dni }}</p>
-        <p class="mb-1"><strong>Teléfono:</strong> {{ $docente->telefono }}</p>
-        <p class="mb-1"><strong>Mail ABC:</strong> {{ $docente->mail_abc }}</p>
-        <p class="mb-1"><strong>Dirección:</strong> {{ $docente->direccion }}</p>
+<div class="w-10/12 mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-semibold text-white">Detalle del docente</h2>
+        <a href="{{ route('docentes.index') }}"
+           class="px-4 py-2 text-sm font-semibold text-white rounded bg-slate-600 hover:bg-slate-700">
+           ← Volver
+        </a>
     </div>
-</div>
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <span>Materias dictadas</span>
-        <a href="{{ route('docentes.materias', $docente) }}" class="btn btn-sm btn-secondary">Administrar materias</a>
+    <div class="p-6 mb-6 bg-white rounded shadow">
+        <h3 class="mb-2 text-lg font-semibold text-slate-800">
+            {{ $teacher->last_name }}, {{ $teacher->name }}
+        </h3>
+
+        <div class="grid grid-cols-1 gap-2 text-sm md:grid-cols-2">
+            <p><span class="font-semibold text-slate-700">DNI:</span> {{ $teacher->dni }}</p>
+            <p><span class="font-semibold text-slate-700">Teléfono:</span> {{ $teacher->phone ?? '—' }}</p>
+            <p><span class="font-semibold text-slate-700">Mail ABC:</span> {{ $teacher->email_abc ?? '—' }}</p>
+            <p><span class="font-semibold text-slate-700">Dirección:</span> {{ $teacher->address ?? '—' }}</p>
+            <p><span class="font-semibold text-slate-700">CUIL:</span> {{ $teacher->cuil ?? '—' }}</p>
+            <p><span class="font-semibold text-slate-700">Código Postal:</span> {{ $teacher->zip_code ?? '—' }}</p>
+            <p><span class="font-semibold text-slate-700">Fecha de nacimiento:</span>
+                {{ optional($teacher->birthdate)->format('d/m/Y') ?? '—' }}
+            </p>
+            <p><span class="font-semibold text-slate-700">Fecha de alta:</span>
+                {{ optional($teacher->created_at)->format('d/m/Y') }}
+            </p>
+        </div>
     </div>
-    <div class="card-body">
-        <ul class="list-group">
-            @forelse($docente->materias as $materia)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ $materia->nombre }} - {{ $materia->curso }}° {{ $materia->division }} - {{ $materia->dia }} {{ $materia->horario }}
+
+    <div class="p-6 bg-white rounded shadow">
+        <div class="flex items-center justify-between mb-4">
+            <h4 class="text-lg font-semibold text-slate-800">Materias dictadas</h4>
+            {{--
+            <a href="{{ route('docentes.materias', $teacher) }}"
+               class="px-3 py-1 text-sm font-semibold text-white bg-indigo-600 rounded hover:bg-indigo-700">
+               Administrar materias
+            </a>
+            --}}
+        </div>
+
+        {{-- Lista de materias (cuando esté implementado) --}}
+        <ul class="divide-y divide-slate-200">
+            {{--
+            @forelse($teacher->materias as $materia)
+                <li class="py-2 text-sm text-slate-700">
+                    {{ $materia->nombre }} —
+                    {{ $materia->curso }}° {{ $materia->division }} —
+                    {{ $materia->dia }} {{ $materia->horario }}
                 </li>
             @empty
-                <li class="list-group-item">No tiene materias cargadas.</li>
+                <li class="py-4 text-center text-slate-500">No tiene materias cargadas.</li>
             @endforelse
+            --}}
+            <li class="py-4 text-center text-slate-500">No tiene materias cargadas.</li>
         </ul>
     </div>
 </div>

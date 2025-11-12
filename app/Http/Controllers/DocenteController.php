@@ -2,13 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class DocenteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('docentes.index');
+        $teachers = Teacher::query()
+            ->when($request->filled('last_name'), function ($q) use ($request) {
+                $q->where('last_name', 'like', '%' . $request->last_name . '%');
+            })
+            ->when($request->filled('dni'), function ($q) use ($request) {
+                $q->where('dni', 'like', '%' . $request->dni . '%');
+            })
+            ->orderBy('last_name')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('docentes.index', compact('teachers'));
     }
 
     public function create()
@@ -18,6 +30,90 @@ class DocenteController extends Controller
 
     public function store(Request $request)
     {
-        return view('docentes.index');
+        //TODO: FormRequest + materias
+
+        $data = $request->validate([
+            'lastName'   => 'required|string|max:255',
+            'name'       => 'required|string|max:255',
+            'dni'        => 'required|numeric',
+            'years'      => 'nullable|integer',
+            'birthdate'  => 'nullable|date',
+            'cuil'       => 'nullable|string|max:20',
+            'zipCode'    => 'nullable|string|max:20',
+            'address'    => 'nullable|string|max:255',
+            'phone'      => 'nullable|string|max:50',
+            'mailAbc'    => 'nullable|email',
+        ]);
+
+        $teacher = Teacher::create([
+            'last_name'  => $data['lastName'],
+            'name'       => $data['name'],
+            'dni'        => $data['dni'],
+            'year_old'   => $data['years'] ?? null,
+            'birthdate'  => $data['birthdate'] ?? null,
+            'cuil'       => $data['cuil'] ?? null,
+            'zip_code'   => $data['zipCode'] ?? null,
+            'address'    => $data['address'] ?? null,
+            'phone'      => $data['phone'] ?? null,
+            'email_abc'  => $data['mailAbc'] ?? null,
+        ]);
+
+        return redirect()->route('docentes.index')->with('success', 'Docente creado.');
+    }
+
+    public function edit($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+
+        return view('docentes.edit', compact('teacher'));
+    }
+
+    public function show($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+
+        return view('docentes.show', compact('teacher'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'lastName'   => 'required|string|max:255',
+            'name'       => 'required|string|max:255',
+            'dni'        => 'required|numeric',
+            'years'      => 'nullable|integer',
+            'birthdate'  => 'nullable|date',
+            'cuil'       => 'nullable|string|max:20',
+            'zipCode'    => 'nullable|string|max:20',
+            'address'    => 'nullable|string|max:255',
+            'phone'      => 'nullable|string|max:50',
+            'mailAbc'    => 'nullable|email',
+        ]);
+
+        $teacher = Teacher::findOrFail($id);
+
+        // 2️⃣ Actualizar sus campos
+        $teacher->update([
+            'last_name'  => $data['lastName'],
+            'name'       => $data['name'],
+            'dni'        => $data['dni'],
+            'years'      => $data['years'] ?? null,
+            'birthdate'  => $data['birthdate'] ?? null,
+            'cuil'       => $data['cuil'] ?? null,
+            'zip_code'   => $data['zipCode'] ?? null,
+            'address'    => $data['address'] ?? null,
+            'phone'      => $data['phone'] ?? null,
+            'mail_abc'   => $data['mailAbc'] ?? null,
+        ]);
+
+        return redirect()->route('docentes.index')->with('success', 'Docente editado.');
+    }
+
+    public function delete($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+
+        $teacher->delete();
+        return redirect()->route('docentes.index')->with('success', 'Docente eliminado.');
     }
 }

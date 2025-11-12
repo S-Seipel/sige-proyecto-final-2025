@@ -13,7 +13,12 @@ Route::get('/materias', [MateriaController::class, 'index'])->name('materias');
 
 Route::get('/docentes', [DocenteController::class, 'index'])->name('docentes.index');
 Route::get('/docentes/create', [DocenteController::class, 'create'])->name('docentes.create');
+Route::get('/docentes/edit/{id}', [DocenteController::class, 'edit'])->name('docentes.edit');
+Route::patch('/docentes/edit/{id}', [DocenteController::class, 'update'])->name('docentes.update');
 Route::post('/docentes/create', [DocenteController::class, 'store'])->name('docentes.store');
+Route::get('/docentes/{id}', [DocenteController::class, 'show'])->name('docentes.show');
+Route::post('/docentes/{id}', [DocenteController::class, 'delete'])->name('docentes.delete');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
