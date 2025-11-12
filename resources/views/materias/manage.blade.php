@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="h4 mb-3">Materias de {{ $docente->apellido }}, {{ $docente->nombre }}</h2>
+<h2 class="mb-3 h4">Materias de {{ $docente->apellido }}, {{ $docente->nombre }}</h2>
 
 <div class="row">
     <div class="col-md-6">
         <h5>Agregar materia</h5>
-        <form action="{{ route('docentes.materias.store', $docente) }}" method="POST" class="card card-body mb-3">
+        <form action="{{ route('docentes.materias.store', $docente) }}" method="POST" class="mb-3 card card-body">
             @csrf
             <div class="mb-2">
                 <label class="form-label required">Materia</label>
@@ -34,17 +34,19 @@
     <div class="col-md-6">
         <h5>Materias cargadas</h5>
         <ul class="list-group">
-            @forelse($docente->materias as $materia)
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>{{ $materia->materia }} - {{ $materia->curso }}° {{ $materia->division }} - {{ $materia->dia }} {{ $materia->horario }}</span>
-                    <form action="{{ route('docentes.materias.destroy', [$docente, $materia]) }}" method="POST" onsubmit="return confirm('¿Eliminar esta materia?')">
-                        @csrf @method('DELETE')
-                        <button class="btn btn-sm btn-outline-danger">X</button>
-                    </form>
-                </li>
-            @empty
-                <li class="list-group-item">No hay materias.</li>
-            @endforelse
+            @if($docente)
+                @forelse($docente->materias as $materia)
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ $materia->materia }} - {{ $materia->curso }}° {{ $materia->division }} - {{ $materia->dia }} {{ $materia->horario }}</span>
+                        <form action="{{ route('docentes.materias.destroy', [$docente, $materia]) }}" method="POST" onsubmit="return confirm('¿Eliminar esta materia?')">
+                            @csrf @method('DELETE')
+                            <button class="btn btn-sm btn-outline-danger">X</button>
+                        </form>
+                    </li>
+                @empty
+                    <li class="list-group-item">No hay materias.</li>
+                @endforelse
+            @endif
         </ul>
     </div>
 </div>

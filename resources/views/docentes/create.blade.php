@@ -1,50 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="h4 mb-3">Nuevo docente</h2>
+<h2 class="mb-3 h4">Nuevo docente</h2>
 
-<form action="{{ route('docentes.store') }}" method="POST" class="card card-body bg-white shadow-sm">
+<form action="{{ route('docentes.store') }}" method="POST" class="bg-white shadow-sm card card-body">
     @csrf
     <div class="row">
-        <div class="col-md-4 mb-3">
+        <div class="mb-3 col-md-4">
             <label class="form-label required">Apellido</label>
             <input type="text" name="apellido" class="form-control" required>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="mb-3 col-md-4">
             <label class="form-label required">Nombre</label>
             <input type="text" name="nombre" class="form-control" required>
         </div>
-        <div class="col-md-4 mb-3">
+        <div class="mb-3 col-md-4">
             <label class="form-label required">DNI</label>
             <input type="text" name="dni" class="form-control" required>
         </div>
 
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">Edad</label>
             <input type="number" name="edad" class="form-control">
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">Fecha de Nacimiento</label>
             <input type="date" name="fecha_nacimiento" class="form-control">
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">CUIL</label>
             <input type="text" name="cuil" class="form-control">
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">Código Postal</label>
             <input type="text" name="codigo_postal" class="form-control">
         </div>
 
-        <div class="col-md-6 mb-3">
+        <div class="mb-3 col-md-6">
             <label class="form-label">Dirección</label>
             <input type="text" name="direccion" class="form-control">
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">Teléfono</label>
             <input type="text" name="telefono" class="form-control">
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="mb-3 col-md-3">
             <label class="form-label">Mail ABC</label>
             <input type="email" name="mail_abc" class="form-control">
         </div>

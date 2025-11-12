@@ -1,22 +1,28 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DocenteController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MateriaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => redirect()->route('dashboard'))->middleware('auth');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/materias', [MateriaController::class, 'index'])->name('materias');
+
+Route::get('/docentes', [DocenteController::class, 'index'])->name('docentes.index');
+Route::get('/docentes/create', [DocenteController::class, 'create'])->name('docentes.create');
+Route::post('/docentes/create', [DocenteController::class, 'store'])->name('docentes.store');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::resource('docentes', DocenteController::class);
-    Route::get('docentes/{docente}/materias', [DocenteMateriaController::class, 'index'])->name('docentes.materias');
-    Route::post('docentes/{docente}/materias', [DocenteMateriaController::class, 'store'])->name('docentes.materias.store');
-    Route::delete('docentes/{docente}/materias/{materia}', [DocenteMateriaController::class, 'destroy'])->name('docentes.materias.destroy');
-
-    Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index')->middleware('can:manage-users');
-    Route::get('/usuarios/{usuario}/edit', [UsuarioController::class, 'edit'])->name('usuarios.edit')->middleware('can:manage-users');
-    Route::put('/usuarios/{usuario}', [UsuarioController::class, 'update'])->name('usuarios.update')->middleware('can:manage-users');
-
-    Route::get('/readme', fn() => view('readme'))->name('readme');
-    Route::get('/manual', fn() => view('manual'))->name('manual');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
