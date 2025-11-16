@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
+use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -31,8 +33,7 @@ class DocenteController extends Controller
     public function store(Request $request)
     {
         //TODO: FormRequest + materias
-
-        $data = $request->validate([
+        $dataPersonal = $request->validate([
             'lastName'   => 'required|string|max:255',
             'name'       => 'required|string|max:255',
             'dni'        => 'required|numeric',
@@ -45,17 +46,28 @@ class DocenteController extends Controller
             'mailAbc'    => 'nullable|email',
         ]);
 
+        $dataProfesional = $request->validate([
+            "subject"     => 'required|string',
+            "course"      => 'required|integer',
+            "division"    => 'required|integer',
+            "day"         => 'required|string',
+            "start_time"  => 'required',
+            "end_time"    => 'required',
+        ]);
+
+
+
         $teacher = Teacher::create([
-            'last_name'  => $data['lastName'],
-            'name'       => $data['name'],
-            'dni'        => $data['dni'],
-            'year_old'   => $data['years'] ?? null,
-            'birthdate'  => $data['birthdate'] ?? null,
-            'cuil'       => $data['cuil'] ?? null,
-            'zip_code'   => $data['zipCode'] ?? null,
-            'address'    => $data['address'] ?? null,
-            'phone'      => $data['phone'] ?? null,
-            'email_abc'  => $data['mailAbc'] ?? null,
+            'last_name'  => $dataPersonal['lastName'],
+            'name'       => $dataPersonal['name'],
+            'dni'        => $dataPersonal['dni'],
+            'year_old'   => $dataPersonal['years'] ?? null,
+            'birthdate'  => $dataPersonal['birthdate'] ?? null,
+            'cuil'       => $dataPersonal['cuil'] ?? null,
+            'zip_code'   => $dataPersonal['zipCode'] ?? null,
+            'address'    => $dataPersonal['address'] ?? null,
+            'phone'      => $dataPersonal['phone'] ?? null,
+            'email_abc'  => $dataPersonal['mailAbc'] ?? null,
         ]);
 
         return redirect()->route('docentes.index')->with('success', 'Docente creado.');
@@ -63,14 +75,14 @@ class DocenteController extends Controller
 
     public function edit($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = Teacher::with('subjects')->findOrFail($id);
 
         return view('docentes.edit', compact('teacher'));
     }
 
     public function show($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = Teacher::with('subjects')->findOrFail($id);
 
         return view('docentes.show', compact('teacher'));
     }

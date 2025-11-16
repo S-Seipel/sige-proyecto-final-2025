@@ -2,12 +2,13 @@
 
 @section('content')
 <div class="w-full mx-auto">
-    <h2 class="mb-6 text-xl font-semibold text-white">Nuevo docente</h2>
+    <h2 class="my-6 text-xl font-semibold text-white">Nuevo docente</h2>
 
-    <form action="{{ route('docentes.store') }}" method="POST" class="p-6 bg-white rounded shadow">
+    <form action="{{ route('docentes.store') }}" method="POST" class="pb-1 bg-white rounded shadow">
         @csrf
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-6 p-6 lg:grid-cols-3 xl:grid-cols-4">
+
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Apellido <span class="text-red-500">*</span></label>
                 <input type="text" name="lastName" required
@@ -69,7 +70,7 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between mt-6">
+        <div class="flex items-center justify-between m-6">
             <a href="{{ route('docentes.index') }}" class="text-sm font-semibold text-gray-600 hover:text-gray-900">
                 ← Volver
             </a>

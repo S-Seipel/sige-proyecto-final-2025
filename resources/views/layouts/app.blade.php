@@ -29,7 +29,7 @@
 
             <!-- Page Content -->
             <main class="flex items-center justify-center w-full min-h-screen">
-                <div class="flex items-center justify-center w-7/12">
+                <div class="flex items-center justify-center w-fit-content max-w-10/12">
                     @yield('content')
                 </div>
             </main>

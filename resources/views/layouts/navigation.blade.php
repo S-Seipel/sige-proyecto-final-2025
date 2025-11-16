@@ -12,6 +12,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('docentes.index')" :active="request()->routeIs('docentes.index')">
+                        {{ __('Docentes') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -47,6 +50,15 @@
                         </x-slot>
                     </x-dropdown>
                 @endauth
+                @guest
+                    <x-dropdown-link :href="route('login')">
+                        {{ __('Iniciar sesión') }}
+                    </x-dropdown-link>
+
+                    <x-dropdown-link :href="route('register')">
+                        {{ __('Registrar') }}
+                    </x-dropdown-link>
+                @endguest
             </div>
 
             <div class="flex items-center -me-2 sm:hidden">

@@ -24,25 +24,11 @@ class Teacher extends Model
         'address',
         'phone',
         'email_abc',
+        'subject_id'
     ];
 
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'teacher_subject');
-    }
-
-    public function courses()
-    {
-        return $this->belongsToMany(Course::class, 'teacher_course');
-    }
-
-    public function schedules()
-    {
-        return $this->belongsToMany(Schedule::class, 'teacher_schedule');
-    }
-
-    public function days()
-    {
-        return $this->belongsToMany(Day::class, 'teacher_day');
+        return $this->hasMany(Subject::class);
     }
 }

@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('year_old');
             $table->timestamp('birthdate');
             $table->string('cuil');
-            // TODO: hacer a tabla dedicada
             $table->string('address');
             $table->string('phone');
             $table->text('email_abc');

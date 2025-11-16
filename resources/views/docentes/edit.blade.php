@@ -8,7 +8,8 @@
         @csrf
         @method('PATCH')
 
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-6 p-6 lg:grid-cols-3 xl:grid-cols-4">
+
             <div>
                 <label class="block mb-1 text-sm font-medium text-gray-700">Apellido <span class="text-red-500">*</span></label>
                 <input type="text" name="lastName" required value="{{ $teacher->last_name }}"

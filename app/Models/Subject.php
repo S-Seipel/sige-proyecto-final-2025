@@ -12,12 +12,17 @@ class Subject extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name'
+        'subject',
+        'day',
+        'start_time',
+        'end_time',
+        'course',
+        'division'
     ];
 
-    public function teachers()
+    public function teacher()
     {
-        return $this->belongsToMany(Teacher::class, 'teacher_subject');
+        return $this->belongsTo(Teacher::class);
     }
 
 }

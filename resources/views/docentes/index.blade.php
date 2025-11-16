@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="w-10/12">
+    <div class="w-full">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-semibold text-white">Docentes</h2>
             <a href="{{ route('docentes.create') }}" class="px-4 py-2 text-sm font-semibold text-white bg-blue-600 rounded hover:bg-blue-700">
@@ -38,7 +38,6 @@
                         <th class="px-4 py-2">DNI</th>
                         <th class="px-4 py-2">Teléfono</th>
                         <th class="px-4 py-2">Mail ABC</th>
-                        <th class="px-4 py-2">Creado (A-M-D)</th>
                         <th class="px-4 py-2 text-right">Acciones</th>
                     </tr>
                 </thead>
@@ -50,7 +49,6 @@
                         <td class="px-4 py-2">{{ $teacher->dni }}</td>
                         <td class="px-4 py-2">{{ $teacher->phone }}</td>
                         <td class="px-4 py-2">{{ $teacher->email_abc }}</td>
-                        <td class="px-4 py-2">{{ $teacher->created_at->format('Y-m-d') }}</td>
                         <td class="px-4 py-2 space-x-2 text-right">
                             <a href="{{ route('docentes.show', $teacher) }}" class="text-blue-600 hover:underline">Ver</a>
                             <a href="{{ route('docentes.edit', $teacher) }}" class="text-amber-600 hover:underline">Editar</a>
