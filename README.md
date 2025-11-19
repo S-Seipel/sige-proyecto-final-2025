@@ -1,176 +1,147 @@
-# 📘 Sistema de Gestión Escolar – SiGE
-
-Desarrollado en **PHP 8 + Laravel 10 + MySQL**  
-Proyecto final – Base de Datos & Programación en PHP – Técnica 3  
-
----
-
-## 1. Descripción del Proyecto
-
-El **Sistema de Gestión Escolar (SiGE)** permite administrar docentes, materias asociadas y usuarios del sistema.  
-Implementa un **CRUD completo**, con interfaz intuitiva, validaciones, roles de usuario y documentación integrada.
-
-El objetivo es ofrecer una plataforma simple y funcional para gestionar la información administrativa de una institución educativa.
+# 📘 Sistema de Gestión Escolar (SiGE)  
+### Proyecto Final 2025  
+**Autor:** Santiago Seipel
 
 ---
 
-## 2. Tecnologías Utilizadas
+## 📌 Descripción  
+SiGE es un sistema de gestión escolar desarrollado como proyecto final académico.  
+Permite gestionar:
 
-| Componente  | Tecnología               |
-|------------|--------------------------|
-| Backend    | PHP 8.x – Laravel 10     |
-| Base de datos | MySQL 8               |
-| Frontend   | Blade Templates + TailwindCSS |
-| Autenticación | Laravel Breeze |
-| Validación | Laravel Validator        |
-| Roles      | Middleware personalizado |
+- Docentes  
+- Alumnos  
+- Cursos  
+- Materias  
+- Horarios  
+- Inscripciones  
+- Registros administrativos básicos  
+
+El proyecto está construido con:
+
+- **Laravel 10+ (PHP 8.2+)**  
+- **MySQL**  
+- **Vite + TailwindCSS**  
+- **Blade**  
+- **Autenticación nativa de Laravel**  
 
 ---
 
-## 3. Requerimientos Previos
+## 🚀 Requisitos  
+Antes de instalar, asegurate de tener:
 
-- PHP 8.1+
-- Composer
-- MySQL 5.7+
-- Extensiones: pdo_mysql, mbstring, openssl, tokenizer
-- (Opcional) NodeJS + npm
+- PHP 8.1 o superior  
+- Composer  
+- Node.js 18+  
+- MySQL
+- Extensiones: `pdo`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `bcmath`  
 
 ---
 
-## 4. Instalación
+## 📦 Instalación
 
-### 4.1 Clonar repositorio
+### 1️⃣ Clonar el repositorio
+```bash
+git clone https://github.com/S-Seipel/sige-proyecto-final-2025
+cd sige
 ```
-git clone https://github.com/usuario/sige-proyecto.git
-cd sige-proyecto
-```
 
-### 4.2 Instalar dependencias
-```
+### 2️⃣ Instalar dependencias de PHP
+```bash
 composer install
-npm install
-npm run build
 ```
 
-### 4.3 Configurar .env
+### 3️⃣ Instalar dependencias de Node
+```bash
+npm install
 ```
+
+### 4️⃣ Copiar el archivo de entorno
+```bash
 cp .env.example .env
 ```
 
-Editar:
-```
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=sistema_sige
-DB_USERNAME=root
-DB_PASSWORD=password
-```
-
-### 4.4 Generar key
-```
+### 5️⃣ Generar la clave de la app
+```bash
 php artisan key:generate
 ```
 
-### 4.5 Migraciones
+### 6️⃣ Configurar la base de datos en `.env`
+Ejemplo:
 ```
-php artisan migrate
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sige
+DB_USERNAME=root
+DB_PASSWORD=
 ```
 
-### 4.6 Ejecutar el sistema
+### 7️⃣ Ejecutar migraciones 
+```bash
+php artisan migrate 
 ```
+
+---
+
+## ▶️ Cómo ejecutar la aplicación
+
+### 🖥 Backend (Laravel)
+Para levantar el backend:
+
+```bash
 php artisan serve
 ```
 
----
+### 🌐 Frontend (Vite)
+Para levantar el entorno de desarrollo:
 
-## 5. Usuarios del Sistema
-
-### Administrador
-- CRUD completo de docentes
-- CRUD de materias
-- CRUD de usuarios
-- Modificar contraseñas
-- Buscar docentes por DNI o apellido
-
-### Usuario Estándar
-- Consultar docentes
-- Buscar docentes
-- Cambiar su contraseña
-
----
-
-## 6. Funcionalidades
-
-### 6.1 CRUD Docentes
-Campos:
-- Apellido, Nombre, DNI, Edad, Fecha Nacimiento  
-- CUIL, Dirección, Código Postal  
-- Teléfono, Mail ABC  
-
-### 6.2 Materias
-- Materia
-- Curso
-- División
-- Día
-- Horarios
-
-### 6.3 Usuarios
-- Crear usuarios estándar
-- Modificar usuarios
-- Cambiar contraseñas
-
----
-
-## 7. Validaciones
-
-- Campos obligatorios
-- Formato de DNI
-- Email ABC válido
-- CUIL correcto
-- Horarios válidos
-- Contraseñas seguras
-
----
-
-## 8. Seguridad
-
-- Middleware auth
-- Middleware admin
-- CSRF enabled
-- Password hashing (bcrypt)
-
----
-
-## 9. Tablas MySQL
-
-### teachers
-id, apellido, nombre, dni, edad, fecha_nacimiento, cuil, direccion, codigo_postal, telefono, email_abc
-
-### subjects
-id, teacher_id, materia, curso, division, dia, hora_inicio, hora_fin
-
-### users
-id, name, email, password, is_admin
-
----
-
-## 10. Troubleshooting
-
-### No conecta MySQL
-- Revisar `.env`
-- MySQL corriendo
-
-### Migraciones fallan
-```
-php artisan migrate:fresh
+```bash
+npm run dev
 ```
 
-### CSS/JS no cargan
+Esto permite que los estilos, scripts y componentes se actualicen automáticamente.
+
+---
+
+## 📁 Estructura del Proyecto (Resumen)
 ```
+app/
+  Http/
+  Models/
+bootstrap/
+config/
+database/
+public/
+resources/
+  views/
+  css/
+  js/
+routes/
+  web.php
+  api.php
+```
+
+---
+
+## 🔧 Scripts útiles
+
+### Compilar para producción:
+```bash
 npm run build
 ```
 
+### Limpiar cachés:
+```bash
+php artisan optimize:clear
+```
+  
 ---
 
-## 11. Créditos
-Sistema desarrollado por **Santiago Seipel**, EEST N°3, 2025.
+## 👤 Autor
+**Santiago Seipel**  
+Proyecto Final – 2025
+
+---
+
+## 📄 Licencia
+Este proyecto es exclusivamente académico y no está destinado a uso comercial.
