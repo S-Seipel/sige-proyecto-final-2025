@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\UsuarioController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Validation\Rules\Password;
+use Symfony\Component\HttpFoundation\Request;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
@@ -41,5 +44,13 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/usuarios/edit/{id}', [UsuarioController::class, 'edit'])->name('users.edit');
     Route::patch('/usuarios/edit/{id}', [UsuarioController::class, 'update'])->name('users.update');
 });
+
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password',[PasswordResetLinkController::class, 'store'])->name('password.email');
+
 
 require __DIR__.'/auth.php';
