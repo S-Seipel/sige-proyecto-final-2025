@@ -76,6 +76,24 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
+### ✔️ Configurar el correo en `.env` (IMPORTANTE)
+Además de la base de datos, también debés configurar las credenciales del correo, necesarias para recuperar contraseña y enviar notificaciones.
+
+Debés reemplazar los valores por tu correo Gmail real y una Contraseña de Aplicación.
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=tu_correo@gmail.com
+MAIL_PASSWORD=tu_contraseña_de_aplicacion
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=tu_correo@gmail.com
+MAIL_FROM_NAME="Sistema SiGE"
+```
+
+---
+
 ### 7️⃣ Ejecutar migraciones 
 ```bash
 php artisan migrate 
@@ -86,15 +104,11 @@ php artisan migrate
 ## ▶️ Cómo ejecutar la aplicación
 
 ### 🖥 Backend (Laravel)
-Para levantar el backend:
-
 ```bash
 php artisan serve
 ```
 
 ### 🌐 Frontend (Vite)
-Para levantar el entorno de desarrollo:
-
 ```bash
 npm run dev
 ```
@@ -134,7 +148,7 @@ npm run build
 ```bash
 php artisan optimize:clear
 ```
-  
+
 ---
 
 ## 👤 Autor
