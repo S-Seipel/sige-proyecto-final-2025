@@ -1,30 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 class="h4 mb-3">Editar usuario</h2>
 
-<form action="{{ route('usuarios.update', $usuario) }}" method="POST" class="card card-body bg-white">
-    @csrf
-    @method('PUT')
-    <div class="mb-3">
-        <label class="form-label">Nombre</label>
-        <input type="text" name="name" class="form-control" value="{{ $usuario->name }}">
+    <div class="w-full">
+        <h2 class="mb-6 text-2xl font-semibold text-slate-50">
+            Editar usuario
+        </h2>
+
+        <form
+            action="{{ route('users.update', $usuario) }}"
+            method="POST"
+            class="max-w-xl p-6 bg-white border shadow-md rounded-xl border-slate-200"
+        >
+            @csrf
+            @method('PATCH')
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-medium text-slate-700">
+                    Nombre
+                </label>
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ $usuario->name }}"
+                    class="w-full px-3 py-2 text-sm border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-medium text-slate-700">
+                    Email
+                </label>
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ $usuario->email }}"
+                    class="w-full px-3 py-2 text-sm border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+            </div>
+
+            <div class="mb-5">
+                <label class="block mb-1 text-sm font-medium text-slate-700">
+                    Rol
+                </label>
+                <select
+                    name="is_admin"
+                    class="w-full px-3 py-2 text-sm border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                    <option value="0" @selected(!$usuario->is_admin)>Estándar</option>
+                    <option value="1" @selected($usuario->is_admin)>Administrador</option>
+                </select>
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-1 text-sm font-medium text-slate-700">
+                    Nueva contraseña (opcional)
+                </label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Dejar vacío para no cambiar"
+                    class="w-full px-3 py-2 text-sm border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+            </div>
+
+            <button
+                class="px-5 py-2 text-sm font-semibold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-700">
+                Guardar cambios
+            </button>
+
+        </form>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" value="{{ $usuario->email }}">
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <select name="is_admin" class="form-select">
-            <option value="0" @selected(!$usuario->is_admin)>Estándar</option>
-            <option value="1" @selected($usuario->is_admin)>Administrador</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label class="form-label">Nueva contraseña (opcional)</label>
-        <input type="password" name="password" class="form-control" placeholder="Dejar vacío para no cambiar">
-    </div>
-    <button class="btn btn-primary">Guardar cambios</button>
-</form>
 @endsection

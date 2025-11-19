@@ -12,8 +12,19 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('docentes.index')" :active="request()->routeIs('docentes.index')">
-                        {{ __('Docentes') }}
+                    @auth
+                        @if(auth()->user()->is_admin)
+                            <x-nav-link :href="route('docentes.index')" :active="request()->routeIs('docentes.index')">
+                                {{ __('Docentes') }}
+                            </x-nav-link>
+                        @else
+                            <x-nav-link :href="route('docentes.index.users')" :active="request()->routeIs('docentes.index.users')">
+                                {{ __('Docentes') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Usuarios') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 
 class DocenteController extends Controller
 {
-    public function index(Request $request)
-    {
+
+    public function indexUser(Request $request){
         $teachers = Teacher::query()
             ->when($request->filled('last_name'), function ($q) use ($request) {
                 $q->where('last_name', 'like', '%' . $request->last_name . '%');
@@ -25,14 +25,31 @@ class DocenteController extends Controller
         return view('docentes.index', compact('teachers'));
     }
 
+    public function index(Request $request)
+    {
+        $teachers = Teacher::query()
+            ->when($request->filled('last_name'), function ($q) use ($request) {
+                $q->where('last_name', 'like', '%' . $request->last_name . '%');
+            })
+            ->when($request->filled('dni'), function ($q) use ($request) {
+                $q->where('dni', 'like', '%' . $request->dni . '%');
+            })
+            ->orderBy('last_name')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('docentes.admin.index', compact('teachers'));
+    }
+
     public function create()
     {
-        return view('docentes.create');
+        return view('docentes.admin.create');
     }
 
     public function store(Request $request)
     {
         //TODO: FormRequest + materias
+
         $dataPersonal = $request->validate([
             'lastName'   => 'required|string|max:255',
             'name'       => 'required|string|max:255',
@@ -45,17 +62,6 @@ class DocenteController extends Controller
             'phone'      => 'nullable|string|max:50',
             'mailAbc'    => 'nullable|email',
         ]);
-
-        $dataProfesional = $request->validate([
-            "subject"     => 'required|string',
-            "course"      => 'required|integer',
-            "division"    => 'required|integer',
-            "day"         => 'required|string',
-            "start_time"  => 'required',
-            "end_time"    => 'required',
-        ]);
-
-
 
         $teacher = Teacher::create([
             'last_name'  => $dataPersonal['lastName'],
@@ -77,10 +83,17 @@ class DocenteController extends Controller
     {
         $teacher = Teacher::with('subjects')->findOrFail($id);
 
-        return view('docentes.edit', compact('teacher'));
+        return view('docentes.admin.edit', compact('teacher'));
     }
 
     public function show($id)
+    {
+        $teacher = Teacher::with('subjects')->findOrFail($id);
+
+        return view('docentes.admin.show', compact('teacher'));
+    }
+
+    public function showUser($id)
     {
         $teacher = Teacher::with('subjects')->findOrFail($id);
 
@@ -104,7 +117,6 @@ class DocenteController extends Controller
 
         $teacher = Teacher::findOrFail($id);
 
-        // 2️⃣ Actualizar sus campos
         $teacher->update([
             'last_name'  => $data['lastName'],
             'name'       => $data['name'],
@@ -126,6 +138,8 @@ class DocenteController extends Controller
         $teacher = Teacher::findOrFail($id);
 
         $teacher->delete();
+
+        // TODO: add cascade on delete
         return redirect()->route('docentes.index')->with('success', 'Docente eliminado.');
     }
 }

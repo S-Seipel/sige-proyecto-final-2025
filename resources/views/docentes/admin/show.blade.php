@@ -4,7 +4,7 @@
 <div class="w-10/12 mx-auto">
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-xl font-semibold text-white">Detalle del docente</h2>
-        <a href="{{ route('docentes.index.users') }}"
+        <a href="{{ route('docentes.index') }}"
            class="px-4 py-2 text-sm font-semibold text-white rounded bg-slate-600 hover:bg-slate-700">
            ← Volver
         </a>
@@ -34,8 +34,15 @@
     <div class="p-6 bg-white rounded shadow">
         <div class="flex items-center justify-between mb-4">
             <h4 class="text-lg font-semibold text-slate-800">Materias dictadas</h4>
+
+            <a href="{{ route('materias.manage', $teacher) }}"
+               class="px-3 py-1 text-sm font-semibold text-white bg-indigo-600 rounded hover:bg-indigo-700">
+               Administrar materias
+            </a>
+
         </div>
 
+        {{-- Lista de materias (cuando esté implementado) --}}
         <ul class="divide-y divide-slate-200">
             @forelse($teacher->subjects as $subject)
                 <li class="py-2 text-sm text-slate-700">
