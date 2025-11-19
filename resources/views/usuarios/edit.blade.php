@@ -39,19 +39,6 @@
                 >
             </div>
 
-            <div class="mb-5">
-                <label class="block mb-1 text-sm font-medium text-slate-700">
-                    Rol
-                </label>
-                <select
-                    name="is_admin"
-                    class="w-full px-3 py-2 text-sm border rounded-lg border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                    <option value="0" @selected(!$usuario->is_admin)>Estándar</option>
-                    <option value="1" @selected($usuario->is_admin)>Administrador</option>
-                </select>
-            </div>
-
             <div class="mb-6">
                 <label class="block mb-1 text-sm font-medium text-slate-700">
                     Nueva contraseña (opcional)

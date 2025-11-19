@@ -28,7 +28,6 @@ class UsuarioController extends Controller
         $data = $request->validate([
             'name'      => 'required|string|max:255',
             'email'     => 'required|email',
-            'is_admin'  => 'required|integer',
             'password'  => 'nullable|string|min:8',
         ]);
 
