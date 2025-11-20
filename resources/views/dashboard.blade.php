@@ -114,7 +114,7 @@
                 </h3>
                 <ol class="space-y-1 text-gray-700 list-decimal list-inside">
                     <li>Ir al menú <strong>Docentes</strong>.</li>
-                    <li>Presionar el botón <strong>"Nuevo docente"</strong> o similar.</li>
+                    <li>Presionar el botón <strong>"Nuevo docente"</strong>.</li>
                     <li>Completar todos los campos obligatorios del formulario.</li>
                     <li>Presionar <strong>"Guardar"</strong>.</li>
                 </ol>
@@ -157,7 +157,6 @@
                 </p>
                 <ul class="space-y-1 text-gray-700 list-disc list-inside">
                     <li><strong>Agregar materia:</strong> completar los campos Materia, Curso, División, Día y Horarios.</li>
-                    <li><strong>Editar materia:</strong> modificar datos de una materia ya existente.</li>
                     <li><strong>Eliminar materia:</strong> quitar una materia asociada al docente.</li>
                 </ul>
                 <p class="mt-3 text-gray-700">
@@ -177,7 +176,6 @@
                     <li>Crear nuevos usuarios Estándar.</li>
                     <li>Editar nombre y email de los usuarios.</li>
                     <li>Reiniciar o cambiar la contraseña de un usuario.</li>
-                    <li>Definir si un usuario es Administrador o Estándar (según la configuración del sistema).</li>
                 </ul>
                 <p class="mt-3 text-gray-700">
                     El usuario Estándar solo cuenta con permisos de lectura sobre la información de docentes
