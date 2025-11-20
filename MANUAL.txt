@@ -1,0 +1,100 @@
+MANUAL DE USUARIO – SiGE
+Sistema de Gestión Escolar – Escuela de Educación Secundaria Técnica N° 3 · Año 2025
+Autor: Santiago Seipel
+
+ÍNDICE
+1. Introducción
+2. Requisitos del Sistema
+3. Inicio de Sesión
+4. Panel de navegación
+5. Gestión de Docentes
+6. Gestión de Materias
+7. Gestión de Usuarios
+8. Recuperación de Contraseña
+9. Seguridad del Sistema
+
+--------------------------------------
+
+1. INTRODUCCIÓN
+El Sistema de Gestión Escolar (SiGE) permite cargar, consultar y administrar docentes,
+materias asociadas y usuarios del sistema. Este manual explica paso a paso todas las
+funciones que ofrece la plataforma, para que cualquier persona pueda utilizarla incluso
+sin experiencia previa.
+
+--------------------------------------
+
+2. REQUISITOS DEL SISTEMA
+Para utilizar SiGE correctamente se recomienda contar con:
+- Navegador web actualizado (Chrome, Firefox, Edge).
+- Conexión a internet o red local.
+- Un usuario y contraseña válidos.
+
+--------------------------------------
+
+3. INICIO DE SESIÓN
+1. Abrir el navegador y acceder a la dirección del sistema (ejemplo: http://localhost:8000).
+2. Ingresar email y contraseña.
+3. Presionar "Iniciar sesión".
+
+Si los datos son correctos, accederá al Panel Principal.
+
+--------------------------------------
+
+4. PANEL DE NAVEGACIÓN
+Una vez dentro del sistema, el menú permite acceder a:
+- Docentes
+- Usuarios (solo administradores)
+- Perfil (cambiar contraseña)
+- Cerrar sesión
+
+--------------------------------------
+
+5. GESTIÓN DE DOCENTES
+
+Crear un docente:
+1. Ir a "Docentes".
+2. Presionar "Nuevo docente".
+3. Completar los campos.
+4. Guardar.
+
+Buscar docente:
+Utilizar la barra de búsqueda por apellido o DNI.
+
+Editar docente:
+Seleccionar el docente y presionar "Editar".
+
+Eliminar docente:
+Presionar "Eliminar". Esta acción es irreversible.
+
+--------------------------------------
+
+6. GESTIÓN DE MATERIAS
+Acciones posibles:
+- Agregar materia (nombre, curso, división, día y horarios).
+- Eliminar materia.
+
+--------------------------------------
+
+7. GESTIÓN DE USUARIOS
+Solo para Administradores:
+- Crear usuarios estándar.
+- Editar nombre y email.
+- Restablecer contraseñas.
+
+Los usuarios estándar solo pueden ver información y cambiar su propia contraseña.
+
+--------------------------------------
+
+8. RECUPERACIÓN DE CONTRASEÑA
+1. En el login, hacer clic en "¿Olvidaste tu contraseña?".
+2. Ingresar email.
+3. Seguir las instrucciones enviadas por correo.
+
+--------------------------------------
+
+9. SEGURIDAD DEL SISTEMA
+- Contraseñas encriptadas.
+- Sesiones protegidas mediante Laravel.
+- Protección CSRF.
+- Roles y permisos separados según tipo de usuario.
+
